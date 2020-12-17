@@ -1,0 +1,32 @@
+{
+  "name": "poller",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node ./bin/www",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/divyavgirase/poller.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/divyavgirase/poller/issues"
+  },
+  "homepage": "https://github.com/divyavgirase/poller#readme",
+  "dependencies": {
+    "axios": "^0.20.0",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "kafka-node": "^5.0.0",
+    "mysql": "^2.18.1",
+    "mysql2": "^2.2.5",
+    "prom-client": "^12.0.0",
+    "sequelize": "^6.3.5"
+  }
+}

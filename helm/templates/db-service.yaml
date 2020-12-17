@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata: 
+  labels: 
+    name: {{ .Release.Name }}-mysql-rds
+  name: {{ .Release.Name }}-mysql-rds
+spec: 
+  ports: 
+    - port: 3306
+      protocol: TCP
+      targetPort: 3306

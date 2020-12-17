@@ -1,0 +1,47 @@
+#Deployment Specification
+deployment:
+  strategy: RollingUpdate
+  strategyKey: rollingUpdate
+  maxSurge: 1
+  maxUnavailable: 0
+  minReadySeconds: 30
+  progressDeadlineSeconds: 35
+
+#Cluster Specifications
+cluster:
+  replica: 3 
+
+#Container Image Specification
+image:
+  repository: repository #divyavgirase/poller
+  tag: tag
+  pullPolicy: Always
+
+#Container Environment Specifications
+env:
+  poll: poll
+  user: user
+  password: password
+  name: db
+  host: host
+  broker1: broker1
+  broker2: broker2
+  broker3: broker3
+
+#Probe Specifications
+probe:
+  liveness:
+    initialDelay: 15
+    periodSeconds: 30   
+  readiness:
+    initialDelay: 15
+
+#Autoscaling Configuration
+scaling:
+  maxCPUUtilizationPercent: 70
+  cpuMillicore: 100m
+
+
+
+
+

@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-poller-deployment
+spec:
+  replicas: {{ .Values.cluster.replica }}
+  strategy:
+    type: {{ .Values.deployment.strategy }}
+    {{ .Values.deployment.strategyKey }}:
+      maxSurge: {{ .Values.deployment.maxSurge }}
+      maxUnavailable: {{ .Values.deployment.maxUnavailable }}
+  minReadySeconds: {{ .Values.deployment.minReadySeconds }}
+  progressDeadlineSeconds: {{ .Values.deployment.progressDeadlineSeconds }}  
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-poller
+
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-poller
+    spec:
+      serviceAccountName: poller-svc-account       
+      containers:
+        - name: {{ .Release.Name }}-poller
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          resources:
+            requests:
+              cpu: {{ .Values.scaling.cpuMillicore }}
+          env: 
+            - name: poll
+              value: "{{ .Values.env.poll }}"
+            - name: user
+              value: {{ .Values.env.user }}
+            - name: password
+              value: {{ .Values.env.password }}
+            - name: db
+              value: {{ .Values.env.db }} 
+            - name: host
+              value: {{ .Values.env.host }}
+            - name: broker1
+              value: {{ .Values.env.broker1 }} 
+            - name: broker2
+              value: {{ .Values.env.broker2 }} 
+            - name: broker3
+              value: {{ .Values.env.broker3 }}
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 3001
+            initialDelaySeconds: {{ .Values.probe.liveness.initialDelay }}
+            periodSeconds: {{ .Values.probe.liveness.periodSeconds }}
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: 3001
+            initialDelaySeconds: {{ .Values.probe.readiness.initialDelay }}         
+      imagePullSecrets:
+        - name: regcred

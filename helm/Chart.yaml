@@ -1,0 +1,11 @@
+apiVersion: v1
+name: poller
+version: 1.0.2
+description: Helm Chart For Poller   
+maintainers:
+  - name: Divya Vijendra Girase
+    email: girase.di@northeastern.edu
+  - name: Mitali Manjarekar  
+    email: manjarekar.mi@northeastern.edu
+sources:
+  - https://github.com/csye7125-advanced-cloud/poller
